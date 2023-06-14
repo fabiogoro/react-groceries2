@@ -1,10 +1,10 @@
 import ListGroup from 'react-bootstrap/ListGroup';
 import Grocery from './Grocery'
 
-function ShoppingList() {
+function ShoppingList({ groceryList }) {
   return (
     <ListGroup>
-      <Grocery name="banana" price="10" quantity="10" image="image.jpg"></Grocery>
+      { groceryList.map((g, i)=>(<Grocery key={i} name={g.name} price={g.price} quantity={g.quantity} image={g.image}></Grocery>)) }
     </ListGroup>
   );
 }
