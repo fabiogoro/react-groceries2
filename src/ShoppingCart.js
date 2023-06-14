@@ -8,7 +8,7 @@ function ShoppingCart({ groceryList }) {
         <Grocery 
           key={i} 
           name={g.name} 
-          price={g.price*g.inCart} 
+          price={g.total} 
           quantity={g.inCart}
         />
     )}
