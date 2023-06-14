@@ -1,11 +1,13 @@
 import Groceries from './Groceries'
-import Container from 'react-bootstrap/Container';
+import Header from './Header'
+import Container from 'react-bootstrap/Container'
 
 function App() {
   return (
-    <Container>
-      <Groceries></Groceries>
-    </Container>
+    <div>
+      <Header></Header>
+      <Groceries></Groceries
+    </div>
   );
 }
 

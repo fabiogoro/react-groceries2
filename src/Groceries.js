@@ -13,8 +13,7 @@ function Groceries() {
     {name: 'apple', price: 10, quantity: 10, image: 'image.jpg', inCart: 2, total: 20},
   ]
   return (
-    <Container>
-      <h1>Groceries</h1>
+    <Container className="mt-4">
       <Row>
         <Col>
           <ShoppingList groceryList={groceryList}></ShoppingList>
