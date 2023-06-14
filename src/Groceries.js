@@ -6,12 +6,13 @@ import ShoppingList from './ShoppingList'
 import ShoppingCart from './ShoppingCart'
 import Total from './Total'
 import Receipt from './Receipt'
+import { faEgg, faCarrot, faLemon } from '@fortawesome/free-solid-svg-icons'
 
 function Groceries() {
   const [groceryList, setGroceryList] = useState([
-    {name: 'banana', price: 10, quantity: 10, image: 'image.jpg', inCart: 0, total: 0},
-    {name: 'bread', price: 8, quantity: 10, image: 'image.jpg', inCart: 0, total: 0},
-    {name: 'apple', price: 2, quantity: 10, image: 'image.jpg', inCart: 0, total: 0},
+    {name: 'Egg', price: 10, quantity: 10, image: faEgg, inCart: 0, total: 0},
+    {name: 'Carrot', price: 8, quantity: 10, image: faCarrot, inCart: 0, total: 0},
+    {name: 'Lemon', price: 2, quantity: 10, image: faLemon, inCart: 0, total: 0},
   ])
 
   function addItemHandler(e){

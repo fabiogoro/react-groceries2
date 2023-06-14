@@ -17,7 +17,7 @@ function ShoppingList({ groceryList, clickHandler }) {
   }
 
   return (
-    <Card>
+    <Card bg="primary" text="light">
       <Card.Body>
         <Card.Title>
           Shopping List

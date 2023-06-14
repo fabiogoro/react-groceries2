@@ -21,7 +21,7 @@ function ShoppingCart({ groceryList, clickHandler }) {
   }
 
   return (
-    <Card>
+    <Card bg="success" text="light">
       <Card.Body>
         <Card.Title>
           Shopping Cart
