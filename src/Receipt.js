@@ -28,7 +28,7 @@ function Receipt({ groceryList }) {
           Your Receipt
         </Card.Title>
         <Card.Text>
-          Price: { total.total } <br/>
+          Price: ${ total.total.toFixed(2) } <br/>
           Items: { total.inCart }
         </Card.Text>
       </Card.Body>

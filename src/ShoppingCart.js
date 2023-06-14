@@ -1,10 +1,13 @@
 import ListGroup from 'react-bootstrap/ListGroup'
 import Grocery from './Grocery'
+import Card from 'react-bootstrap/Card'
 
 function ShoppingCart({ groceryList, clickHandler }) {
-  function insertGroceries(g, i){
+  const groceriesInCart = []
+  for(const i in groceryList){
+    const g = groceryList[i]
     if(g.inCart>0){ 
-      return (
+      groceriesInCart.push((
         <Grocery 
           key={i} 
           name={g.name} 
@@ -13,14 +16,24 @@ function ShoppingCart({ groceryList, clickHandler }) {
           index={i}
           onClick={clickHandler}
         />
-      )
+      ))
     }
   }
 
   return (
-    <ListGroup>
-      { groceryList.map(insertGroceries) }
-    </ListGroup>
+    <Card>
+      <Card.Body>
+        <Card.Title>
+          Shopping Cart
+        </Card.Title>
+        <Card.Text>
+          { groceriesInCart.length?null:'Cart is empty. Click on items on right to add them to shopping cart.' }
+        </Card.Text>
+      </Card.Body>
+      <ListGroup>
+        { groceriesInCart }
+      </ListGroup>
+    </Card>
   );
 }
 
