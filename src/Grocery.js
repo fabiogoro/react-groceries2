@@ -1,8 +1,8 @@
 import ListGroup from 'react-bootstrap/ListGroup';
 
-function Grocery({name, price, quantity, image}) {
+function Grocery({name, price, quantity, image, index, disabled, onClick}) {
   return (
-    <ListGroup.Item>{image?image:null} {name} ({price}) - {quantity}</ListGroup.Item>
+    <ListGroup.Item disabled={disabled} index={index} onClick={onClick}>{image?image:null} {name} ({price}) - {quantity}</ListGroup.Item>
   );
 }
 
