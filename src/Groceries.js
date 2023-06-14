@@ -21,6 +21,13 @@ function Groceries() {
     setGroceryList(newGroceryList)
   }
 
+  function removeItemHandler(e){
+    const newGroceryList = [...groceryList]
+    newGroceryList[e.target.getAttribute("index")].inCart -= 1
+    newGroceryList[e.target.getAttribute("index")].quantity += 1
+    setGroceryList(newGroceryList)
+  }
+
   return (
     <Container className="mt-4">
       <Row>
@@ -28,7 +35,7 @@ function Groceries() {
           <ShoppingList groceryList={groceryList} clickHandler={addItemHandler}></ShoppingList>
         </Col>
         <Col>
-          <ShoppingCart groceryList={groceryList}></ShoppingCart>
+          <ShoppingCart groceryList={groceryList} clickHandler={removeItemHandler}></ShoppingCart>
         </Col>
       </Row>
       <Row className="mt-5">
