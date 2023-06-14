@@ -1,4 +1,5 @@
 import Card from 'react-bootstrap/Card'
+import Button from 'react-bootstrap/Button'
 
 function Total({ groceryList }) {
   const total = groceryList.reduce(
@@ -10,15 +11,16 @@ function Total({ groceryList }) {
   )
   return (
     <Card>
-    <Card.Body>
-    <Card.Title>
-      Total
-    </Card.Title>
-    <Card.Text>
-      Price: { total.total } <br/>
-      Items: { total.inCart }
-    </Card.Text>
-    </Card.Body>
+      <Card.Body>
+        <Card.Title>
+          Total
+        </Card.Title>
+        <Card.Text>
+          Price: { total.total } <br/>
+          Items: { total.inCart }
+        </Card.Text>
+        <Button variant="primary">Place order</Button>
+      </Card.Body>
     </Card>
   );
 }

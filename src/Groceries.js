@@ -4,6 +4,7 @@ import Col from 'react-bootstrap/Col'
 import ShoppingList from './ShoppingList'
 import ShoppingCart from './ShoppingCart'
 import Total from './Total'
+import Receipt from './Receipt'
 
 function Groceries() {
   const groceryList = [
@@ -25,6 +26,11 @@ function Groceries() {
       <Row className="mt-5">
         <Col>
           <Total groceryList={groceryList}></Total>
+        </Col>
+      </Row>
+      <Row className="mt-5">
+        <Col>
+          <Receipt groceryList={groceryList}></Receipt>
         </Col>
       </Row>
     </Container>
