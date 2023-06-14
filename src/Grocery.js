@@ -6,7 +6,7 @@ function Grocery({name, price, quantity, image, index, disabled, onClick}) {
   return (
     <ListGroup.Item 
       className="d-flex justify-content-between align-items-start"
-      action 
+      action={ onClick!=undefined } 
       disabled={disabled} 
       index={index} 
       onClick={onClick}> 
