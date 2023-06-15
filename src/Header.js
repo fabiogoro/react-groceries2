@@ -10,6 +10,7 @@ function Header() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link href="/">New order</Nav.Link>
+            <Nav.Link href="/history">Order history</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>
