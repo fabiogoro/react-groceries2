@@ -11,6 +11,11 @@ function Footer() {
           <span className="mb-3 mb-md-0 text-body-secondary">© 2023 Company, Inc</span>
         </div>
 
+        <ul className="nav col-md-4 justify-content-center list-unstyled d-flex">
+          <li className="ms-3"><a className="text-body-secondary" href="/">New order</a></li>
+          <li className="ms-3"><a className="text-body-secondary" href="/history">Order history</a></li>
+        </ul>
+
         <ul className="nav col-md-4 justify-content-end list-unstyled d-flex">
           <li className="ms-3"><a className="text-body-secondary" href="http://github.com/fabiogoro/react-groceries">Github</a></li>
         </ul>
