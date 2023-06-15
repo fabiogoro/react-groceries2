@@ -4,6 +4,7 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import ShoppingList from './ShoppingList'
 import ShoppingCart from './ShoppingCart'
+import History from './History'
 import Total from './Total'
 import Receipt from './Receipt'
 import { faEgg, faCarrot, faLemon } from '@fortawesome/free-solid-svg-icons'
@@ -14,6 +15,11 @@ function Groceries() {
     {name: 'Carrot', price: 8, quantity: 10, image: faCarrot, inCart: 0, total: 0},
     {name: 'Lemon', price: 2, quantity: 10, image: faLemon, inCart: 0, total: 0},
   ])
+
+  const history = [
+    {date: '01/01/2020', total: 10, items: 10},
+    {date: '01/01/2021', total: 20, items: 20},
+  ]
 
   function addItemHandler(e){
     const newGroceryList = [...groceryList]
@@ -61,6 +67,11 @@ function Groceries() {
         <Row className="mt-5">
           <Col>
             <Receipt groceryList={groceryList}></Receipt>
+          </Col>
+        </Row>
+        <Row className="mt-5">
+          <Col>
+            <History history={history}/>
           </Col>
         </Row>
       </Container>
