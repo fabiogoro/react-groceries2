@@ -1,11 +1,16 @@
-import ListGroup from 'react-bootstrap/ListGroup'
+import Table from 'react-bootstrap/Table'
 import Grocery from './Grocery'
 import Card from 'react-bootstrap/Card'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+import Button from 'react-bootstrap/Button'
 
 function History({ history }) {
+  function eraseHistory(){
+    localStorage.removeItem("history")
+    window.location.reload()
+  }
   return (
     <Container className="mt-4">
       <Row>
@@ -16,13 +21,24 @@ function History({ history }) {
                 History
               </Card.Title>
               <Card.Text>
-                { history.length?null:'History is empty. Place some order to see it on history.' }
+                { history.length?(
+                  <Button variant="danger" onClick={eraseHistory} disabled={history.length==0}>Erase history</Button>):
+                    'History is empty. Place some order to see it on history.' }
               </Card.Text>
             </Card.Body>
-            <ListGroup>
-              { history.map((h, i)=><ListGroup.Item key={i}>{h.date}: ${h.total.toFixed(2)} {h.items}</ListGroup.Item>) }
-            </ListGroup>
           </Card>
+            <Table striped bordered hover>
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Total Price</th>
+                  <th># of Items</th>
+                </tr>
+              </thead>
+              <tbody>
+                { history.map((h, i)=><tr><td>{h.date}</td><td>${h.total.toFixed(2)}</td><td>{h.items}</td></tr>) }
+              </tbody>
+            </Table>
         </Col>
       </Row>
     </Container>
