@@ -1,6 +1,7 @@
 import ListGroup from 'react-bootstrap/ListGroup'
 import Grocery from './Grocery'
 import Card from 'react-bootstrap/Card'
+import Col from 'react-bootstrap/Col'
 
 function ShoppingCart({ groceryList, clickHandler }) {
   const groceriesInCart = []
@@ -21,19 +22,21 @@ function ShoppingCart({ groceryList, clickHandler }) {
   }
 
   return (
-    <Card bg="success" text="light">
-      <Card.Body>
-        <Card.Title>
-          Shopping Cart
-        </Card.Title>
-        <Card.Text>
-          { groceriesInCart.length?null:'Cart is empty. Click on items on right to add them to shopping cart.' }
-        </Card.Text>
-      </Card.Body>
-      <ListGroup>
-        { groceriesInCart }
-      </ListGroup>
-    </Card>
+    <Col>
+      <Card bg="success" text="light">
+        <Card.Body>
+          <Card.Title>
+            Shopping Cart
+          </Card.Title>
+          <Card.Text>
+            { groceriesInCart.length?null:'Cart is empty. Click on items on right to add them to shopping cart.' }
+          </Card.Text>
+        </Card.Body>
+        <ListGroup>
+          { groceriesInCart }
+        </ListGroup>
+      </Card>
+    </Col>
   );
 }
 

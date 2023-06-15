@@ -1,6 +1,7 @@
 import ListGroup from 'react-bootstrap/ListGroup';
 import Grocery from './Grocery'
 import Card from 'react-bootstrap/Card'
+import Col from 'react-bootstrap/Col'
 
 function ShoppingList({ groceryList, clickHandler }) {
   function insertGroceries(g, i){
@@ -17,16 +18,18 @@ function ShoppingList({ groceryList, clickHandler }) {
   }
 
   return (
-    <Card bg="primary" text="light">
-      <Card.Body>
-        <Card.Title>
-          Shopping List
-        </Card.Title>
-      </Card.Body>
-      <ListGroup>
-        { groceryList.map(insertGroceries) }
-      </ListGroup>
-    </Card>
+    <Col>
+      <Card bg="primary" text="light">
+        <Card.Body>
+          <Card.Title>
+            Shopping List
+          </Card.Title>
+        </Card.Body>
+        <ListGroup>
+          { groceryList.map(insertGroceries) }
+        </ListGroup>
+      </Card>
+    </Col>
   );
 }
 
