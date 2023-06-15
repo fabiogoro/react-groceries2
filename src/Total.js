@@ -1,14 +1,7 @@
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
 
-function Total({ groceryList, clickHandler }) {
-  const total = groceryList.reduce(
-      (g1,g2)=>{return {
-        total: g1.total+g2.total, 
-        inCart: g1.inCart+g2.inCart,
-      }
-      }
-  )
+function Total({ groceryList, clickHandler, total }) {
   return (
     <Card>
       <Card.Body>

@@ -2,7 +2,7 @@ import ListGroup from 'react-bootstrap/ListGroup'
 import Card from 'react-bootstrap/Card'
 import Grocery from './Grocery'
 
-function Receipt({ groceryList }) {
+function Receipt({ groceryList, total }) {
   function insertGroceries(g, i){
     if(g.inCart>0){ 
       return (
@@ -14,13 +14,6 @@ function Receipt({ groceryList }) {
         />
     )}
   }
-  const total = groceryList.reduce(
-    (g1,g2)=>{return {
-      total: g1.total+g2.total, 
-      inCart: g1.inCart+g2.inCart,
-    }
-    }
-  )
   return (
     <Card>
       <Card.Body>

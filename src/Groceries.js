@@ -10,16 +10,23 @@ import Receipt from './Receipt'
 import { faEgg, faCarrot, faLemon } from '@fortawesome/free-solid-svg-icons'
 
 function Groceries() {
+  function total(){
+    return groceryList.reduce(
+      (g1,g2)=>{return {
+        total: g1.total+g2.total,
+        inCart: g1.inCart+g2.inCart,
+      }
+    }
+  )}
+
   const [groceryList, setGroceryList] = useState([
     {name: 'Egg', price: 10, quantity: 10, image: faEgg, inCart: 0, total: 0},
     {name: 'Carrot', price: 8, quantity: 10, image: faCarrot, inCart: 0, total: 0},
     {name: 'Lemon', price: 2, quantity: 10, image: faLemon, inCart: 0, total: 0},
   ])
 
-  const history = [
-    {date: '01/01/2020', total: 10, items: 10},
-    {date: '01/01/2021', total: 20, items: 20},
-  ]
+  const saved = localStorage.getItem("history")
+  const [history, setHistory] = useState(JSON.parse(saved) || [])
 
   function addItemHandler(e){
     const newGroceryList = [...groceryList]
@@ -38,6 +45,11 @@ function Groceries() {
   }
 
   function placeOrderHandler(e){
+    const newHistory = [...history]
+    const t = total()
+    newHistory.push({total: t.total, items: t.inCart, date: new Date().toLocaleString()})
+    setHistory(newHistory)
+    localStorage.setItem("history", JSON.stringify(newHistory))
     setIsShowingReceipt(true)
   }
 
@@ -48,15 +60,25 @@ function Groceries() {
       <Container className="mt-4">
         <Row>
           <Col>
-            <ShoppingList groceryList={groceryList} clickHandler={addItemHandler}></ShoppingList>
+            <ShoppingList 
+              groceryList={groceryList} 
+              clickHandler={addItemHandler}>
+            </ShoppingList>
           </Col>
           <Col>
-            <ShoppingCart groceryList={groceryList} clickHandler={removeItemHandler}></ShoppingCart>
+            <ShoppingCart 
+              groceryList={groceryList} 
+              clickHandler={removeItemHandler}>
+            </ShoppingCart>
           </Col>
         </Row>
         <Row className="mt-5">
           <Col>
-            <Total groceryList={groceryList} clickHandler={placeOrderHandler}></Total>
+            <Total 
+              groceryList={groceryList} 
+              clickHandler={placeOrderHandler} 
+              total={total(groceryList)}>
+            </Total>
           </Col>
         </Row>
       </Container>
@@ -66,7 +88,10 @@ function Groceries() {
       <Container className="mt-4">
         <Row className="mt-5">
           <Col>
-            <Receipt groceryList={groceryList}></Receipt>
+            <Receipt 
+              groceryList={groceryList} 
+              total={total(groceryList)}>
+            </Receipt>
           </Col>
         </Row>
         <Row className="mt-5">
