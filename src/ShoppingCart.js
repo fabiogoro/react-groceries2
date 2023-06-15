@@ -32,7 +32,7 @@ function ShoppingCart({ groceryList, clickHandler }) {
             { groceriesInCart.length?null:'Cart is empty. Click on items on right to add them to shopping cart.' }
           </Card.Text>
         </Card.Body>
-        <ListGroup>
+        <ListGroup className="overflow-auto" style={{"max-height":"25vh"}}>
           { groceriesInCart }
         </ListGroup>
       </Card>

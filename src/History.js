@@ -27,18 +27,22 @@ function History({ history }) {
               </Card.Text>
             </Card.Body>
           </Card>
-            <Table striped bordered hover>
-              <thead>
-                <tr>
-                  <th>Date</th>
-                  <th>Total Price</th>
-                  <th># of Items</th>
-                </tr>
-              </thead>
-              <tbody>
-                { history.map((h, i)=><tr onClick={()=>{window.location.href=`receipt/${h.id}`}}><td>{h.date}</td><td>${h.total.toFixed(2)}</td><td>{h.items}</td></tr>) }
-              </tbody>
-            </Table>
+        </Col>
+      </Row>
+      <Row className="overflow-auto" style={{"max-height":"50vh"}}>
+        <Col>
+          <Table striped bordered hover>
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Total Price</th>
+                <th># of Items</th>
+              </tr>
+            </thead>
+            <tbody>
+              { history.map((h, i)=><tr onClick={()=>{window.location.href=`receipt/${h.id}`}}><td>{h.date}</td><td>${h.total.toFixed(2)}</td><td>{h.items}</td></tr>) }
+            </tbody>
+          </Table>
         </Col>
       </Row>
     </Container>

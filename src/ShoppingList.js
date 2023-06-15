@@ -25,7 +25,7 @@ function ShoppingList({ groceryList, clickHandler }) {
             Shopping List
           </Card.Title>
         </Card.Body>
-        <ListGroup>
+        <ListGroup className="overflow-auto" style={{"max-height":"25vh"}}>
           { groceryList.map(insertGroceries) }
         </ListGroup>
       </Card>

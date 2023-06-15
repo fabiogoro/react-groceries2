@@ -40,7 +40,7 @@ function Receipt() {
                 Items: { total.inCart }
               </Card.Text>
             </Card.Body>
-            <ListGroup>
+            <ListGroup className="overflow-auto" style={{"max-height":"50vh"}}>
               { groceryList.map(insertGroceries) }
             </ListGroup>
           </Card>
