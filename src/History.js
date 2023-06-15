@@ -36,7 +36,7 @@ function History({ history }) {
                 </tr>
               </thead>
               <tbody>
-                { history.map((h, i)=><tr><td>{h.date}</td><td>${h.total.toFixed(2)}</td><td>{h.items}</td></tr>) }
+                { history.map((h, i)=><tr onClick={()=>{window.location.href=`receipt/${h.id}`}}><td>{h.date}</td><td>${h.total.toFixed(2)}</td><td>{h.items}</td></tr>) }
               </tbody>
             </Table>
         </Col>

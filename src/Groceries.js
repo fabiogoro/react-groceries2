@@ -7,7 +7,7 @@ import History from './History'
 import Total from './Total'
 import Receipt from './Receipt'
 import { faEgg, faCarrot, faLemon } from '@fortawesome/free-solid-svg-icons'
-import { BrowserRouter, Routes, Route } from "react-router-dom"
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 function Groceries() {
   function total(){
@@ -47,15 +47,15 @@ function Groceries() {
   function placeOrderHandler(e){
     const newHistory = [...history]
     const t = total()
-    newHistory.push({total: t.total, items: t.inCart, date: new Date().toLocaleString()})
+    const receipt = {total: t.total, items: t.inCart, date: new Date().toLocaleString(), id: newHistory.length}
+    newHistory.push(receipt)
     setHistory(newHistory)
     localStorage.setItem("history", JSON.stringify(newHistory))
-    setIsShowingReceipt(true)
+    localStorage.setItem(receipt.id, JSON.stringify(groceryList))
+    window.location.href=`receipt/${receipt.id}`
   }
 
-  const [isShowingReceipt, setIsShowingReceipt] = useState(false)
-
-  const Index = !isShowingReceipt?(
+  const Index = (
     <Container className="mt-4">
       <Row>
         <ShoppingList 
@@ -73,21 +73,20 @@ function Groceries() {
         total={total(groceryList)}>
       </Total>
     </Container>
-  ):(
-      <Receipt 
-        groceryList={groceryList} 
-        total={total(groceryList)}>
-      </Receipt>
-    )
-
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={ Index } />
-        <Route path="history" element={ <History history={history}/> } />
-      </Routes>
-    </BrowserRouter>
   )
+
+  const router = createBrowserRouter([
+    { path: "/", element: Index },
+    { path: "history", element: <History history={history}/> },
+    { path: "receipt/:id", 
+      element: <Receipt/>,
+      loader: async ({ params }) => {
+        return params.id
+      },
+    },
+  ]);
+
+  return <RouterProvider router={router} />
 }
 
 export default Groceries;

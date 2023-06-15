@@ -4,8 +4,17 @@ import Grocery from './Grocery'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+import { useLoaderData } from 'react-router-dom'
 
-function Receipt({ groceryList, total }) {
+function Receipt() {
+  const id = useLoaderData();
+  const saved = localStorage.getItem(id)
+  const groceryList = JSON.parse(saved) || []
+  const total = groceryList.reduce(
+      (g1,g2)=>{return {
+        total: g1.total+g2.total,
+        inCart: g1.inCart+g2.inCart,
+      }})
   function insertGroceries(g, i){
     if(g.inCart>0){ 
       return (

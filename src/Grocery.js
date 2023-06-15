@@ -11,7 +11,7 @@ function Grocery({name, price, quantity, image, index, disabled, onClick}) {
       index={index} 
       onClick={onClick}> 
       <div className="ms-2 me-auto">
-          <div className="fw-bold"><FontAwesomeIcon icon={image} /> {name}</div>
+        <div className="fw-bold">{image?<FontAwesomeIcon icon={image} />:null} {name}</div>
           ${price.toFixed(2)}
       </div>
       <Badge bg="dark" pill>
