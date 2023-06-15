@@ -9,12 +9,13 @@ function Grocery({name, price, quantity, image, index, disabled, onClick}) {
       action={ onClick!=undefined } 
       disabled={disabled} 
       index={index} 
-      onClick={onClick}> 
-      <div className="ms-2 me-auto">
+      onClick={onClick}
+      text="danger">
+      <div className={`ms-2 me-auto ${quantity?null:"text-danger"}`}>
         <div className="fw-bold">{image?<FontAwesomeIcon icon={image} />:null} {name}</div>
           ${price.toFixed(2)}
       </div>
-      <Badge bg="dark" pill>
+      <Badge bg={quantity?"dark":"danger"} pill>
           {quantity}
       </Badge>
     </ListGroup.Item>
