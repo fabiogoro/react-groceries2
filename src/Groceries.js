@@ -2,91 +2,118 @@ import { useState } from "react"
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import ShoppingList from './ShoppingList'
-import ShoppingCart from './ShoppingCart'
-import History from './History'
-import Total from './Total'
-import Receipt from './Receipt'
-import { faEgg, faCarrot, faLemon } from '@fortawesome/free-solid-svg-icons'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import Card from 'react-bootstrap/Card'
+import Col from 'react-bootstrap/Col'
+import ListGroup from 'react-bootstrap/ListGroup';
+import Button from 'react-bootstrap/Button';
+import Image from 'react-bootstrap/Image';
 
 function Groceries() {
-  function total(){
-    return groceryList.reduce(
-      (g1,g2)=>{return {
-        total: g1.total+g2.total,
-        inCart: g1.inCart+g2.inCart,
-      }
-    }
-  )}
-
+  const [selected, setSelected] = useState(0)
+  const [isShowing, setIsShowing] = useState(false)
   const [groceryList, setGroceryList] = useState([
-    {name: 'Egg', price: 10, quantity: 10, image: faEgg, inCart: 0, total: 0},
-    {name: 'Carrot', price: 8, quantity: 10, image: faCarrot, inCart: 0, total: 0},
-    {name: 'Lemon', price: 2, quantity: 10, image: faLemon, inCart: 0, total: 0},
+    {name: 'Egg', price: 10, quantity: 10, image: "/img_415179.png"},
+    {name: 'Carrot', price: 8, quantity: 10, image: "/img_415179.png"},
+    {name: 'Lemon', price: 2, quantity: 10, image: "/img_415179.png"},
   ])
 
-  const saved = localStorage.getItem("history")
-  const [history, setHistory] = useState(JSON.parse(saved) || [])
+  const [inputs, setInputs] = useState({});
 
-  function addItemHandler(e){
-    const newGroceryList = [...groceryList]
-    const item = newGroceryList[e.target.getAttribute("index")]
-    item.inCart += 1
-    item.quantity -= 1
-    item.total = item.inCart*item.price
-    setGroceryList(newGroceryList)
+  const handleChange = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
+    setInputs(values => ({...values, [name]: value}))
   }
 
-  function removeItemHandler(e){
-    const newGroceryList = [...groceryList]
-    newGroceryList[e.target.getAttribute("index")].inCart -= 1
-    newGroceryList[e.target.getAttribute("index")].quantity += 1
-    setGroceryList(newGroceryList)
+  function showDetail({target}){
+    setSelected(target.getAttribute('index'))
   }
 
-  function placeOrderHandler(e){
-    const newHistory = [...history]
-    const t = total()
-    const receipt = {total: t.total, items: t.inCart, date: new Date().toLocaleString(), id: newHistory.length}
-    newHistory.push(receipt)
-    setHistory(newHistory)
-    localStorage.setItem("history", JSON.stringify(newHistory))
-    localStorage.setItem(receipt.id, JSON.stringify(groceryList))
-    window.location.href=`receipt/${receipt.id}`
+  function showForm(){
+    setIsShowing(true)
   }
 
-  const Index = (
+  function createItem(event){
+    event.preventDefault()
+    event.target.checkValidity()
+    event.target.reset()
+    setIsShowing(false)
+    setGroceryList([...groceryList,{...inputs,price:parseInt(inputs.price)}])
+  }
+
+
+  return (
     <Container className="mt-4">
       <Row>
         <ShoppingList 
           groceryList={groceryList} 
-          clickHandler={addItemHandler}>
+          clickHandler={showDetail}>
         </ShoppingList>
-        <ShoppingCart 
-          groceryList={groceryList} 
-          clickHandler={removeItemHandler}>
-        </ShoppingCart>
+        <Col xs="4">
+          <Card bg="success" text="light">
+            <Card.Body>
+              <Card.Title>
+                Item detail
+              </Card.Title>
+            </Card.Body>
+            <ListGroup className="overflow-auto" style={{"maxHeight":"50vh"}}>
+              <ListGroup.Item 
+                className="d-flex justify-content-between align-items-start">
+              { groceryList[selected]?.name }
+              </ListGroup.Item>
+              <ListGroup.Item 
+                className="d-flex justify-content-between align-items-start">
+              ${ groceryList[selected]?.price.toFixed(2) }
+              </ListGroup.Item>
+              <ListGroup.Item 
+                className="d-flex justify-content-between align-items-start">
+                Quantity: { groceryList[selected]?.quantity }
+              </ListGroup.Item>
+              <ListGroup.Item 
+                className="d-flex justify-content-between align-items-start">
+              <Image className="w-100" src={groceryList[selected]?.image} />
+              </ListGroup.Item>
+            </ListGroup>
+          </Card>
+          <Button variant="success" className="mt-3 w-100" onClick={showForm}>Add new item</Button>
+        </Col>
+        <Col xs="4" className={isShowing?"":"d-none"}>
+          <Card bg="danger" text="light">
+            <Card.Body>
+              <Card.Title>
+                Item detail
+              </Card.Title>
+            </Card.Body>
+            <ListGroup className="overflow-auto" style={{"maxHeight":"50vh"}}>
+              <form onSubmit={createItem}>
+                <ListGroup.Item 
+                  className="d-flex justify-content-between align-items-start">
+                  <strong>Name:</strong> <input name="name" onChange={handleChange} type="text" className="w-100 ms-2" required/>
+                </ListGroup.Item>
+                <ListGroup.Item 
+                  className="d-flex justify-content-between align-items-start">
+                  <strong>Price:</strong> <input name="price" onChange={handleChange} type="number" min="0" className="w-100 ms-2" required/>
+                </ListGroup.Item>
+                <ListGroup.Item 
+                  className="d-flex justify-content-between align-items-start">
+                  <strong>Quantity:</strong> <input name="quantity" onChange={handleChange} type="number" min="0" className="w-100 ms-2" required/>
+                </ListGroup.Item>
+                <ListGroup.Item 
+                  className="d-flex justify-content-between align-items-start">
+                  <strong>Image URL:</strong> <input name="image" onChange={handleChange} type="url" className="w-100 ms-2" required/>
+                </ListGroup.Item>
+                <ListGroup.Item 
+                  className="d-flex justify-content-between align-items-start">
+                  <Button type="submit" variant="danger" className="w-100">Add</Button>
+                </ListGroup.Item>
+              </form>
+            </ListGroup>
+
+          </Card>
+        </Col>
       </Row>
-      <Total 
-        groceryList={groceryList} 
-        clickHandler={placeOrderHandler} 
-        total={total(groceryList)}>
-      </Total>
     </Container>
   )
-
-  const router = createBrowserRouter([
-    { path: "/", element: Index },
-    { path: "history", element: <History history={history}/> },
-    { path: "receipt/:id", 
-      element: <Receipt/>,
-      loader: async ({ params }) => {
-        return params.id
-      },
-    },
-  ]);
-
-  return <RouterProvider router={router} />
 }
 
 export default Groceries;

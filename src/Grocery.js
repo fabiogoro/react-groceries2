@@ -6,18 +6,12 @@ function Grocery({name, price, quantity, image, index, disabled, onClick}) {
   return (
     <ListGroup.Item 
       className="d-flex justify-content-between align-items-start"
-      action={ onClick!=undefined } 
-      disabled={disabled} 
       index={index} 
       onClick={onClick}
       text="danger">
       <div className={`ms-2 me-auto ${quantity?null:"text-danger"}`}>
-        <div className="fw-bold">{image?<FontAwesomeIcon icon={image} />:null} {name}</div>
-          ${price.toFixed(2)}
+        <div className="fw-bold">{name} ${price.toFixed(2)}</div>
       </div>
-      <Badge bg={quantity?"dark":"danger"} pill>
-          {quantity}
-      </Badge>
     </ListGroup.Item>
   );
 }

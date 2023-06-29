@@ -18,14 +18,14 @@ function ShoppingList({ groceryList, clickHandler }) {
   }
 
   return (
-    <Col>
+    <Col xs="4">
       <Card bg="primary" text="light">
         <Card.Body>
           <Card.Title>
             Shopping List
           </Card.Title>
         </Card.Body>
-        <ListGroup className="overflow-auto" style={{"max-height":"25vh"}}>
+        <ListGroup className="overflow-auto" style={{"maxHeight":"25vh"}}>
           { groceryList.map(insertGroceries) }
         </ListGroup>
       </Card>
